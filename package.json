@@ -1,0 +1,17 @@
+{
+  "scripts": {
+    "dev": "wrangler dev src/index.ts",
+    "deploy": "wrangler publish --minify src/index.ts"
+  },
+  "dependencies": {
+    "@passwordless-id/webauthn": "^1.2.4",
+    "@tsndr/cloudflare-worker-jwt": "^2.2.1",
+    "hono": "^3.1.5",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230404.0",
+    "@types/jsonwebtoken": "^9.0.2",
+    "wrangler": "^2.7.1"
+  }
+}

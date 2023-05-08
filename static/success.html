@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Passkey Demo for Cloudflare Workers</title>
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="Passkey Demo for Cloudflare Workers">
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="This is a passkey demo using Cloudflare Workers, HonoJS, and the WebAuthn wrapper by Passwordless.ID.">
+    <meta name="twitter:image" content="assets/img/mstile-150x150.png">
+    <meta name="twitter:description" content="This is a passkey demo using Cloudflare Workers, HonoJS, and the WebAuthn wrapper by Passwordless.ID.">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section class="py-4 py-xl-5">
+        <div class="container" style="max-width: 500px;">
+            <div class="p-4 p-lg-5" style="color: rgb(33,37,41);">
+                <div>
+                    <h1 class="fs-3" style="font-weight: 600;">Passkey Login</h1>
+                    <p style="color: rgb(129,129,129);font-size: 14px;">This is an open source demo authentication site which uses Passkeys with the Passwordless.ID WebAuthn wrapper and Cloudflare Workers.</p>
+                </div>
+                <div><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-circle-check float-start" style="font-size: 24px;margin-top: 10px;margin-right: 12px;color: rgb(73,153,76);margin-left: 12px;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <circle cx="12" cy="12" r="9"></circle>
+                        <path d="M9 12l2 2l4 -4"></path>
+                    </svg>
+                    <p style="color: rgb(73,153,76);margin-bottom: 16px;font-weight: 500;line-height: 18px;margin-top: 32px;border-radius: 6px;border: 1px solid rgb(206,212,218);padding: 12px;">You're now signed in with your Passkey.&nbsp;</p>
+                </div>
+                <form>
+                    <div class="form-floating mb-3"><input class="form-control form-control" type="text" id="usernameInput" placeholder="username" value="" readonly="" style="margin-bottom: 32px;"><label class="form-label" for="usernameInput">Username</label></div>
+                </form>
+                <div style="padding: 32px;border-radius: 6px;background: #3b66bc;margin-bottom: 32px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-prompt" style="font-size: 32px;margin-bottom: 12px;color: rgb(255,255,255);">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <polyline points="5 7 10 12 5 17"></polyline>
+                        <line x1="13" y1="17" x2="19" y2="17"></line>
+                    </svg>
+                    <p class="fs-6 fw-semibold" style="color: rgb(255,255,255);margin-bottom: 5px;">Wondering how that worked?</p>
+                    <p style="color: rgba(255,255,255,0.8);font-size: 14px;margin-bottom: 12px;">Have a look at the public, open source, GitHub repository which includes all the code for this demo and a description of how it all works.</p><a href="https://github.com/berrysauce/passkey-demo" target="_blank" class="btn btn-primary" style="background: rgba(255,255,255,0);border-style: none;padding: 0px;font-weight: 500;font-size: 14px;">Visit the repository →</a>
+                </div><a href="/auth/signout" class="btn btn-primary" style="border: 1px solid rgb(206,212,218);border-radius: 6px;background: rgba(13,110,253,0);padding: 8px 12px;color: rgb(33,37,41);width: 100%;font-weight: 500;margin-bottom: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-arrow-back" style="font-size: 20px;margin-bottom: 2px;margin-right: 8px;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M9 11l-4 4l4 4m-4 -4h11a4 4 0 0 0 0 -8h-1"></path>
+                    </svg>Sign back out</a><a href="/auth/delete" class="btn btn-primary" style="border-radius: 6px;background: rgba(13,110,253,0);padding: 8px 12px;color: #ab2a36;width: 100%;font-weight: 500;margin-bottom: 16px;border: 1px none rgb(206,212,218);font-size: 14px;">Delete login and data</a>
+                <p style="font-size: 12px;color: #ab2a36;padding: 8px 12px;border-width: 1px;border-style: solid;border-radius: 5px;"><svg class="icon icon-tabler icon-tabler-info-circle" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="font-size: 16px;margin-bottom: 1px;">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    <polyline points="11 12 12 12 12 16 13 16"></polyline>
+                </svg> You&#39;ll need to manually delete your local passkey, only the data on the server will be deleted</p>
+                <div style="margin-top: 32px;">
+                    <p class="text-center" style="margin-bottom: 10px;"><img src="assets/img/logo.webp" style="height: 32px;filter: contrast(0%);opacity: 0.50;"></p>
+                    <p class="text-center" style="font-size: 10px;color: rgb(173,173,173);max-width: 300px;margin-right: auto;margin-left: auto;">Copyright © 2023 Pathfield – This site is not affiliated with Cloudflare, FIDO, WebAuthn, or Passwordless.ID.</p>
+                </div>
+            </div>
+
+            <script type="module">
+                // this could be changed to locally decoding the JWT token
+                const HTTP_SCHEME = "https://"
+                const host = window.location.host; 
+                const usernameInput = document.getElementById("usernameInput");
+
+                const userRequest = await fetch(`${HTTP_SCHEME}${host}/getuser`);
+                const user = await userRequest.text();
+                usernameInput.value = user;
+            </script>
+
+        </div>
+    </section>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>

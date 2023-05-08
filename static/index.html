@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Passkey Demo for Cloudflare Workers</title>
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="Passkey Demo for Cloudflare Workers">
+    <meta name="twitter:card" content="summary">
+    <meta name="description" content="This is a passkey demo using Cloudflare Workers, HonoJS, and the WebAuthn wrapper by Passwordless.ID.">
+    <meta name="twitter:image" content="assets/img/mstile-150x150.png">
+    <meta name="twitter:description" content="This is a passkey demo using Cloudflare Workers, HonoJS, and the WebAuthn wrapper by Passwordless.ID.">
+    <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="180x180" href="assets/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="assets/img/android-chrome-512x512.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section class="py-4 py-xl-5">
+        <div class="container" style="max-width: 500px;">
+            <div class="p-4 p-lg-5" style="color: rgb(33,37,41);">
+                <div>
+                    <h1 class="fs-3" style="font-weight: 600;">Passkey Login</h1>
+                    <p style="color: rgb(129,129,129);font-size: 14px;">This is an open source demo authentication site which uses Passkeys with the Passwordless.ID WebAuthn wrapper and Cloudflare Workers.</p>
+                </div>
+                <div style="padding: 32px;border-radius: 6px;margin-top: 32px;background: #3b66bc;margin-bottom: 32px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-face-id" style="font-size: 32px;margin-bottom: 12px;color: rgb(255,255,255);">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 8v-2a2 2 0 0 1 2 -2h2"></path>
+                        <path d="M4 16v2a2 2 0 0 0 2 2h2"></path>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+                        <path d="M16 20h2a2 2 0 0 0 2 -2v-2"></path>
+                        <line x1="9" y1="10" x2="9.01" y2="10"></line>
+                        <line x1="15" y1="10" x2="15.01" y2="10"></line>
+                        <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
+                    </svg>
+                    <p class="fs-6 fw-semibold" style="color: rgb(255,255,255);margin-bottom: 5px;">The future is Passwordless</p>
+                    <p style="color: rgba(255,255,255,0.8);font-size: 14px;margin-bottom: 12px;">Learn more, about why Passkeys and FIDO standards are the future for authentication over the internet.</p><a href="https://github.com/berrysauce/passkey-demo" target="_blank" class="btn btn-primary" style="background: rgba(255,255,255,0);border-style: none;padding: 0px;font-weight: 500;font-size: 14px;">Learn more&nbsp;→</a>
+                </div>
+                <p class="text-start" style="font-size: 12px;color: rgb(221,125,13);padding: 8px 12px;border-width: 1px;border-style: solid;border-radius: 6px;margin-top: -20px;margin-bottom: 32px;"><svg class="icon icon-tabler icon-tabler-info-circle" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" style="font-size: 16px;margin-bottom: 1px;">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    <polyline points="11 12 12 12 12 16 13 16"></polyline>
+                </svg><strong>FYI;</strong> Your passkey data will be sent to a server and stored until you delete it after logging in with your passkey.</p>
+                <div id="browser-error" style="margin-bottom: 32px;display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-alert-triangle float-start" style="font-size: 24px;margin-top: 20px;margin-right: 12px;color: var(--bs-red);margin-left: 12px;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <p style="color: var(--bs-red);margin-bottom: 16px;font-weight: 500;line-height: 20px;margin-top: 32px;border-radius: 6px;border: 1px solid rgb(206,212,218);padding: 12px;">It seems like your browser doesn't support WebAuthn.</p>
+                </div>
+                <div id="roaming-error" style="margin-bottom: 32px;display: none;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-alert-triangle float-start" style="font-size: 24px;margin-top: 30px;margin-right: 12px;color: var(--bs-orange);margin-left: 12px;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M12 9v2m0 4v.01"></path>
+                        <path d="M5 19h14a2 2 0 0 0 1.84 -2.75l-7.1 -12.25a2 2 0 0 0 -3.5 0l-7.1 12.25a2 2 0 0 0 1.75 2.75"></path>
+                    </svg>
+                    <p style="color: var(--bs-orange);margin-bottom: 16px;font-weight: 500;line-height: 20px;margin-top: 32px;border-radius: 6px;border: 1px solid rgb(206,212,218);padding: 12px;">It seems like this device only works with roaming authenticators, like a USB Security Key or Smartphone.</p>
+                </div>
+                <div id="auth-div">
+                    <div class="form-floating mb-3" id="auth-form"><input class="form-control form-control" type="text" id="username-input" placeholder="test"><label class="form-label" for="username-input">Username</label></div>
+                    <button class="btn btn-primary" id="signin-button" type="button" style="border: 1px solid rgb(206,212,218);border-radius: 6px;background: rgba(13,110,253,0);padding: 8px 12px;color: rgb(33,37,41);width: 100%;font-weight: 500;margin-bottom: 16px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-face-id" style="font-size: 20px;margin-bottom: 2px;margin-right: 8px;">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path d="M4 8v-2a2 2 0 0 1 2 -2h2"></path>
+                        <path d="M4 16v2a2 2 0 0 0 2 2h2"></path>
+                        <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+                        <path d="M16 20h2a2 2 0 0 0 2 -2v-2"></path>
+                        <line x1="9" y1="10" x2="9.01" y2="10"></line>
+                        <line x1="15" y1="10" x2="15.01" y2="10"></line>
+                        <path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path>
+                    </svg>Sign in with Passkey</button><button class="btn btn-primary" id="signin-loading" type="button" style="border: 1px solid rgb(206,212,218);border-radius: 6px;background: rgba(13,110,253,0);padding: 8px 12px;color: rgb(33,37,41);width: 100%;font-weight: 500;margin-bottom: 16px;display: none;"><span class="spinner-border spinner-border-sm" role="status" style="margin-right: 8px;margin-bottom: 1px;font-size: 20px;border-width: 2px;"></span>Sign in with Passkey</button>
+                </div>
+                <div style="margin-top: 32px;">
+                    <p class="text-center" style="margin-bottom: 10px;"><img src="assets/img/logo.webp" style="height: 32px;filter: contrast(0%);opacity: 0.50;"></p>
+                    <p class="text-center" style="font-size: 10px;color: rgb(173,173,173);max-width: 300px;margin-right: auto;margin-left: auto;">Copyright © 2023 Pathfield – This site is not affiliated with Cloudflare, FIDO, WebAuthn, or Passwordless.ID.</p>
+                </div><script type="module">
+    import { client } from 'https://unpkg.com/@passwordless-id/webauthn'
+
+    // change when locally testing here, in success.html, and in index.ts
+    // DO NOT use http:// in production!
+    const HTTP_SCHEME = "https://"
+    
+    const host = window.location.host; 
+    const browserError = document.getElementById("browser-error");
+    const roamingError = document.getElementById("roaming-error");
+    const authDiv = document.getElementById("auth-div");
+    const usernameInput = document.getElementById("username-input");
+    const signinButton = document.getElementById("signin-button");
+    const loadingButton = document.getElementById("signin-loading");
+
+    let username = usernameInput.value
+    
+    // Check if browser supports WebAuthn
+    if (client.isAvailable() === true) {
+        console.log("✓ WebAuthn client available")
+        browserError.style.display = "none";
+        authDiv.style.display = "block";
+    } else {
+        console.log("⚠ WebAuthn client unavailable")
+        browserError.style.display = "block";
+        authDiv.style.display = "none";
+    }
+    
+    // Check if device can be used as local authenticator
+    // (or requires a roaming authenticator like a USB security key or smartphone)
+    if (await client.isLocalAuthenticator() === false) {
+        console.log("⚠ Local authenticator unavailable – use roaming authenticator")
+        roamingError.style.display = "block";
+    } else {
+        console.log("✓ Local authenticator available")
+        roamingError.style.display = "none";
+    }
+    
+    // Register new user
+    const userRegister = async () => {
+        username = usernameInput.value
+        console.log("[AUTH] Initiating registration")
+        
+        const challengeRequest = await fetch(`${HTTP_SCHEME}${host}/auth/challenge/${username}`);
+        const challenge = await challengeRequest.text();
+
+        console.log("[AUTH] Received challenge nonce from server")
+        
+        const registration = await client.register(username, challenge, {
+          "authenticatorType": "auto",
+          "userVerification": "required",
+          "timeout": 60000,
+          "attestation": false,
+          "debug": false
+        })
+        console.log("[AUTH] Made registration call")
+        
+        const response = await fetch(`${HTTP_SCHEME}${host}/auth/validate`, {
+            method: "POST",
+            body: JSON.stringify(registration),
+            credentials: "same-origin" // <-- makes it possible to save the cookie
+        });
+        console.log("[AUTH] Sent registration request to server")
+
+        if (response.status === 200) {
+            console.log("[AUTH] Successfully verified registration & stored passkey")
+            console.log("[AUTH] Redirecting...")
+            // Redirect to success page
+            window.location.replace(`${HTTP_SCHEME}${host}/success`);
+        } else {
+            console.log("[ERROR] Failed to verify registration – verification aborted on server side")
+            window.location.replace(`${HTTP_SCHEME}${host}/error`);
+        }
+    }
+
+    const userLogin = async (username) => {
+        username = usernameInput.value
+        console.log("[AUTH] Initiating authentication")
+        
+        let challengeRequest = await fetch(`${HTTP_SCHEME}${host}/auth/challenge/${username}?includeCredentialId=true`);
+        challengeRequest = await challengeRequest.text();
+
+        let challenge = challengeRequest.split("///")[0]
+        let credentialId = challengeRequest.split("///")[1]
+
+        console.log("[AUTH] Received challenge nonce from server")
+
+        const authentication = await client.authenticate([credentialId], challenge, {
+            "authenticatorType": "auto",
+            "userVerification": "required",
+            "timeout": 60000
+        })
+        console.log("[AUTH] Made authentication call")
+
+        const response = await fetch(`${HTTP_SCHEME}${host}/auth/login/${username}`, {
+            method: "POST",
+            body: JSON.stringify(authentication),
+            credentials: "same-origin" // <-- makes it possible to save the cookie
+        });
+        console.log("[AUTH] Sent authentication request to server")
+
+        if (response.status === 200) {
+            console.log("[AUTH] Successfully authenticated")
+            console.log("[AUTH] Redirecting...")
+            // Redirect to success page
+            window.location.replace(`${HTTP_SCHEME}${host}/success`);
+        } else {
+            console.log("[ERROR] Failed to authenticate – authentication aborted on server side")
+            window.location.replace(`${HTTP_SCHEME}${host}/error`);
+        }
+    }
+    
+    const userAuth = async () => {
+        username = usernameInput.value
+        if (username.length < 1) {
+            console.log("[WARN] Username must be longer than 0")
+            return
+        }
+
+        signinButton.style.display = "none";
+        loadingButton.style.display = "block";
+
+        const checkRequest = await fetch(`${HTTP_SCHEME}${host}/auth/userexists/${username}`);
+        const check = await checkRequest.text();
+
+        if (check === "true") {
+            console.log("[AUTH] Username already exists, authenticating...")
+            userLogin()
+        }
+
+        // add check if username exists or not
+        userRegister()
+    }
+
+    // Listeners
+    signinButton.addEventListener("click", userAuth);
+
+</script>
+            </div>
+        </div>
+    </section>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
