@@ -1,6 +1,6 @@
 <h1><img src="https://passkeys.berrysauce.me/assets/img/android-chrome-192x192.png" alt="Passkey Demo Icon" height=64><br>Passkey Server Demo</h1>
 
-This is a demo login using Passkeys. They're not new, but have gained a lot of popularity recently as big tech companies like Apple and Google have implemented them in their products. This demo simulates the registration and authentication of a user using passkeys. The server and client (user's browser) use the [Passwordless.ID WebAuthn implementation](https://github.com/passwordless-id/webauthn). Thanks to them for making such an easy to use library!
+This is a demo login using Passkeys. Passkeys are not new, but they've gained a lot of popularity recently as big tech companies like Apple and Google have implemented them in their products. This demo simulates the registration and authentication of a user using passkeys. The server and client (user's browser) use the [Passwordless.ID WebAuthn implementation](https://github.com/passwordless-id/webauthn). Thanks to them for making such an easy-to-use library!
 
 ### Stack
 
@@ -8,7 +8,7 @@ This is a demo login using Passkeys. They're not new, but have gained a lot of p
 - [Router – HonoJS](https://hono.dev/)
 - [Frontend – Bootstrap 5](https://getbootstrap.com/)
 
-[Cloudflare Worker JWT](https://github.com/tsndr/cloudflare-worker-jwt) (a very cool library!) is used for the server-side JWT implementation. I also recommend taking a look at [HonoJS](https://hono.dev/). It's a small but powerful router which works with Cloudflare Workers. There's still some work to do with the documentation, but that's ok as it's quite fresh. It's really great and easy to use.
+[Cloudflare Worker JWT](https://github.com/tsndr/cloudflare-worker-jwt) (a very cool library!) is used for the server-side JWT implementation. I also recommend taking a look at [HonoJS](https://hono.dev/). It's a small but powerful router which works with Cloudflare Workers. There's still some work to do with the documentation, but that's ok, as it's quite fresh. It's really great and easy to use.
 
 ### Development
 
