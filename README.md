@@ -1,4 +1,4 @@
-<h1><img src="https://passkeys.berrysauce.me/assets/img/android-chrome-192x192.png" alt="Passkey Demo Icon">Passkey Server Demo</h1>
+<h1><img src="https://passkeys.berrysauce.me/assets/img/android-chrome-192x192.png" alt="Passkey Demo Icon" height=64><br>Passkey Server Demo</h1>
 
 This is a demo login using Passkeys. They're not new, but have gained a lot of popularity recently as big tech companies like Apple and Google have implemented them in their products. This demo simulates the registration and authentication of a user using passkeys. The server and client (user's browser) use the [Passwordless.ID WebAuthn implementation](https://github.com/passwordless-id/webauthn). Thanks to them for making such an easy to use library!
 
