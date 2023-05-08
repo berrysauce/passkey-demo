@@ -15,8 +15,10 @@ This is a demo login using Passkeys. Passkeys are not new, but they've gained a 
 ### How it works
 
 The Passwordless.ID repository has a very nice graphic for how the WebAuthn process works. I'll just copy it here:
+
 <img src="https://passwordless.id/protocols/webauthn/overview.svg" alt="Graphic explaining the WebAuthn process">
-<small>Source: [Passwordless.ID WebAuthn Repository](https://github.com/passwordless-id/webauthn)</small>
+
+<sub>Source: [Passwordless.ID WebAuthn Repository](https://github.com/passwordless-id/webauthn)</sub>
 
 ### Development
 
