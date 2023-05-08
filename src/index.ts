@@ -50,7 +50,7 @@ app.get("/", serveStatic({ path: "index.html" }), async (c) => {
 
     // if user is signed in (has a session token), redirect to success page
     if (sessionToken != null) {
-        return c.redirect("/success", 301)
+        return c.redirect("/success")
     }
 
     return
@@ -73,6 +73,7 @@ app.get("/success", serveStatic({ path: "success.html" }), async (c) => {
     // get data from token
     const username = payload.username
 
+    // check if user exists
     const check = await c.env.DB.get(username)
     if (check === null) {
         return c.text("Unauthorized", 401)
@@ -83,7 +84,7 @@ app.get("/success", serveStatic({ path: "success.html" }), async (c) => {
 
 app.get("/getuser", async (c) => {
     // this could be changed to locally decoding the JWT token at the client's side
-
+    
     const sessionToken = c.req.cookie("session_token")
 
     // validate token
@@ -128,7 +129,7 @@ app.get("/auth/challenge/:username", async (c) => {
     const newUUID = String(uuidv4())
 
     // Get Host header for later validation
-    // seems to be checked automatically somewhere in the validation process
+    // seems to be checked automatically somewhere in the validation process by WebAuthn
     const origin = c.req.header("Host")
 
     // Store UUID and request origin in DB for later validation
