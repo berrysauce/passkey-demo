@@ -49,7 +49,7 @@ app.get("/", serveStatic({ path: "index.html" }), async (c) => {
     const sessionToken = c.req.cookie("session_token")
 
     // if user is signed in (has a session token), redirect to success page
-    if (sessionToken !== null) {
+    if (sessionToken != null) {
         return c.redirect("/success", 301)
     }
 
