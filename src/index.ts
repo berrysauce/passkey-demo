@@ -43,12 +43,28 @@ const validateSession = async (secret: string, sessionToken: string) => {
 }
 
 app.get("/assets/*", serveStatic({ root: "./" }))
-app.get("/", serveStatic({ path: "index.html" }))
 app.get("/error", serveStatic({ path: "error.html" }))
+
+app.get("/", serveStatic({ path: "index.html" }), async (c) => {
+    const sessionToken = c.req.cookie("session_token")
+
+    // if user is signed in (has a session token), redirect to success page
+    if (sessionToken !== null) {
+        return c.redirect("/success", 301)
+    }
+
+    return
+})
   
 app.get("/success", serveStatic({ path: "success.html" }), async (c) => {
     const sessionToken = c.req.cookie("session_token")
 
+    // check if token is even set
+    if (sessionToken === null) {
+        return c.text("Unauthorized", 401)
+    }  
+
+    // validate token
     let payload = await validateSession(c.env.JWT_TOKEN, String(sessionToken))
     if (payload === false) {
         return c.text("Unauthorized", 401)
@@ -70,6 +86,7 @@ app.get("/getuser", async (c) => {
 
     const sessionToken = c.req.cookie("session_token")
 
+    // validate token
     let payload = await validateSession(c.env.JWT_TOKEN, String(sessionToken))
     if (payload === false) {
         return c.text("Unauthorized", 401)
@@ -231,6 +248,7 @@ app.get("/auth/signout", async (c) => {
 app.get("/auth/delete", async (c) => {
     const sessionToken = c.req.cookie("session_token")
 
+    // validate token
     let payload = await validateSession(c.env.JWT_TOKEN, String(sessionToken))
     if (payload === false) {
         return c.text("Unauthorized", 401)
