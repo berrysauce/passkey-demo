@@ -40,9 +40,21 @@ JWT_TOKEN=<RANDOM TOKEN HERE FOR JWT SIGNING>
 
 Additionally, you need to pass the `JWT_TOKEN` onto your active Worker instance via wrangler (more on that [here](https://developers.cloudflare.com/workers/platform/environment-variables/#add-secrets-to-your-project)).
 
-Deploy your passkey application as a Cloudflare Worker via wrangler with the following command.
+Now, create a `wrangler.toml` file (or edit your existing one) to match the following:
 
-> **Note**: Do not forget to update your KV namespace bindings in the wrangler.toml file. You need two, one for the production KV and one for the preview KV.
+```toml
+name = "passkey-demo"
+main = "src/index.ts"
+compatibility_date = "2023-01-01"
+kv_namespaces = [
+  { binding = "DB", id = "YOUR_KV_ID", preview_id = "YOUR_PREVIEW_KV_ID" }
+]
+
+[site]
+bucket = "./static"
+```
+
+Deploy your passkey application as a Cloudflare Worker via wrangler with the following command.
 
 ```
 npm run deploy
