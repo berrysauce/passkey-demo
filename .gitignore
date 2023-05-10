@@ -105,3 +105,4 @@ dist
 
 # Cloudflare Workers
 .dev.vars
+wrangler.toml
