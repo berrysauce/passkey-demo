@@ -23,14 +23,26 @@ The Passwordless.ID repository has a very nice graphic for how the WebAuthn proc
 ### Development
 
 First, clone the repo to your machine and install all dependencies.
-Then, run the local development server. Some features might not work in local development mode.
+~~Then, run the local development server. Some features might not work in local development mode.~~ 
+
+> **Note**: It seems like the WebAuthn spec requires valid SSL certificates. Currently, local development mode doesn't work. I recommend using `wrangler tail` to get the live logs from your active Cloudflare Worker instance for debugging.
 
 ```
 npm install
 npm run dev
 ```
 
+You also need to create a file called `.dev.vars` in the project directory with the following content:
+
+```
+JWT_TOKEN=<RANDOM TOKEN HERE FOR JWT SIGNING>
+```
+
+Additionally, you need to pass the `JWT_TOKEN` onto your active Worker instance via wrangler (more on that [here](https://developers.cloudflare.com/workers/platform/environment-variables/#add-secrets-to-your-project)).
+
 Deploy your passkey application as a Cloudflare Worker via wrangler with the following command.
+
+> **Note**: Do not forget to update your KV namespace bindings in the wrangler.toml file. You need two, one for the production KV and one for the preview KV.
 
 ```
 npm run deploy
